@@ -1,0 +1,463 @@
+@import "tailwindcss";
+
+:root {
+  --wall: #0f0e0c;
+  --wall-2: #191714;
+  --wall-3: #24211d;
+  --bone: #ece3d0;
+  --bone-dim: #b5ab98;
+  --red: #b3261e;
+  --red-hot: #cf3127;
+  --rule: #3a352e;
+  --wa: #25d366;
+  --wa-hot: #3be37a;
+  --wa-ink: #072213;
+}
+
+@theme inline {
+  --color-wall: var(--wall);
+  --color-wall-2: var(--wall-2);
+  --color-bone: var(--bone);
+  --color-bone-dim: var(--bone-dim);
+  --color-red: var(--red);
+  --font-sans: var(--font-archivo);
+  --font-display: var(--font-sancreek);
+  --spacing-15: 3.75rem;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--wall);
+  color: var(--bone);
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+p,
+li,
+dd {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--red);
+  color: var(--bone);
+}
+
+:focus-visible {
+  outline: 2px solid var(--bone);
+  outline-offset: 3px;
+}
+
+html {
+  scrollbar-color: var(--wall-3) var(--wall);
+}
+
+/* Sign-painter lettering: tuscan caps with an offset red shade ("sombra"). */
+.lettering {
+  font-family: var(--font-sancreek), serif;
+  font-weight: 400;
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  text-shadow: 0.055em 0.055em 0 var(--red);
+  text-wrap: balance;
+}
+
+.lettering-quiet {
+  font-family: var(--font-sancreek), serif;
+  font-weight: 400;
+  line-height: 1;
+  text-wrap: balance;
+}
+
+/* The red painted placard every booking path ends at. */
+.placard {
+  background: var(--red);
+  color: var(--bone);
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 2px rgb(236 227 208 / 0.18), 0 10px 24px -12px rgb(0 0 0 / 0.8);
+  transition: background-color 160ms ease-out;
+}
+.placard:hover {
+  background: var(--red-hot);
+}
+
+.outline-placard {
+  color: var(--bone);
+  border: 2px solid var(--bone);
+  border-radius: 3px;
+  transition: background-color 160ms ease-out, color 160ms ease-out;
+}
+.outline-placard:hover {
+  background: var(--bone);
+  color: var(--wall);
+}
+
+/* WhatsApp: official green, dark text for contrast (white on #25D366 is under 2:1). */
+.btn-whatsapp {
+  background: var(--wa);
+  color: var(--wa-ink);
+  box-shadow: 0 16px 30px -10px rgb(0 0 0 / 0.9), 0 4px 10px -4px rgb(0 0 0 / 0.7);
+  transition: background-color 160ms ease-out, box-shadow 200ms ease-out;
+}
+.btn-whatsapp:hover {
+  background: var(--wa-hot);
+  box-shadow: 0 22px 38px -10px rgb(0 0 0 / 0.95), 0 6px 14px -4px rgb(0 0 0 / 0.7);
+}
+
+.fab {
+  background: var(--wa);
+  color: #fff;
+  box-shadow: 0 18px 36px -8px rgb(0 0 0 / 0.95), 0 6px 14px -4px rgb(0 0 0 / 0.8);
+}
+.fab-label {
+  background: var(--bone);
+  color: var(--wall);
+  box-shadow: 0 10px 24px -8px rgb(0 0 0 / 0.8);
+}
+
+.btn-instagram {
+  background: var(--red);
+  color: var(--bone);
+  box-shadow: 0 10px 22px -12px rgb(0 0 0 / 0.9);
+  transition: background-color 160ms ease-out;
+}
+.btn-instagram:hover {
+  background: var(--red-hot);
+}
+
+/* Hero photo: full-bleed on phones, a framed print from lg up. */
+.hero-frame {
+  position: relative;
+  margin: 0;
+}
+.hero-photo {
+  position: relative;
+  height: 56svh;
+  min-height: 22rem;
+  overflow: hidden;
+}
+.hero-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, rgb(15 14 12 / 0.55) 0%, rgb(15 14 12 / 0) 22%),
+    linear-gradient(to top, var(--wall) 0%, rgb(15 14 12 / 0.65) 22%, rgb(15 14 12 / 0) 55%);
+}
+.grain {
+  position: absolute;
+  inset: -50%;
+  pointer-events: none;
+  background-image: url("/images/grain.png");
+  background-size: 128px 128px;
+  mix-blend-mode: overlay;
+  opacity: 0.22;
+}
+.hero-caption {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .hero-frame {
+    align-self: center;
+    justify-self: center;
+    width: min(34vw, 520px);
+    margin-top: 5.5rem;
+    left: 4vw; /* not transform: Motion owns transform for the parallax */
+  }
+  .hero-photo {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 4 / 5;
+    border-radius: 4px;
+    outline: 1px solid rgb(236 227 208 / 0.18);
+    outline-offset: 10px;
+    box-shadow: 0 40px 80px -30px rgb(0 0 0 / 0.95);
+  }
+  .hero-shade {
+    background:
+      radial-gradient(120% 90% at 50% 40%, rgb(15 14 12 / 0) 55%, rgb(15 14 12 / 0.55) 100%),
+      linear-gradient(to top, rgb(15 14 12 / 0.5) 0%, rgb(15 14 12 / 0) 35%);
+  }
+  .hero-caption {
+    display: block;
+    position: absolute;
+    left: -2.75rem;
+    bottom: 0;
+    transform: rotate(-90deg);
+    transform-origin: left bottom;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bone-dim);
+  }
+}
+
+.link-underline {
+  text-decoration: underline;
+  text-decoration-color: var(--red);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+  transition: text-decoration-color 160ms ease-out;
+}
+.link-underline:hover {
+  text-decoration-color: var(--bone);
+}
+
+.placeholder-slot {
+  color: var(--bone-dim);
+  border: 1px dashed var(--rule);
+  padding: 0.1em 0.4em;
+  border-radius: 2px;
+}
+
+/* Portfolio: asymmetric wall of work. */
+.works {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem 0.75rem;
+}
+.works-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 0;
+}
+.works-thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--wall-2);
+  aspect-ratio: 3 / 4;
+  cursor: zoom-in;
+}
+.works-item:nth-child(1),
+.works-item:nth-child(4) {
+  grid-column: span 2;
+}
+.works-item:nth-child(1) .works-thumb,
+.works-item:nth-child(4) .works-thumb {
+  aspect-ratio: 4 / 5;
+}
+.works-item:nth-child(3),
+.works-item:nth-child(6) {
+  margin-top: 2.5rem;
+}
+.works-caption {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+.works-reel {
+  position: absolute;
+  left: 0.6rem;
+  top: 0.6rem;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--wall);
+  color: var(--bone);
+  border-radius: 2px;
+}
+
+@media (min-width: 1024px) {
+  .works {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-auto-rows: 2.5rem;
+    gap: 0 1.5rem;
+  }
+  .works-item {
+    margin-top: 0 !important;
+  }
+  .works-thumb {
+    aspect-ratio: auto !important;
+    flex: 1;
+  }
+  .works-item:nth-child(1) { grid-column: 1 / 6; grid-row: 1 / span 17; }
+  .works-item:nth-child(2) { grid-column: 6 / 10; grid-row: 3 / span 12; }
+  .works-item:nth-child(3) { grid-column: 10 / 13; grid-row: 6 / span 10; }
+  .works-item:nth-child(4) { grid-column: 6 / 10; grid-row: 16 / span 13; }
+  .works-item:nth-child(5) { grid-column: 1 / 4; grid-row: 19 / span 10; }
+  .works-item:nth-child(6) { grid-column: 10 / 13; grid-row: 17 / span 10; }
+}
+
+.viewer-btn {
+  background: rgb(236 227 208 / 0.12);
+  color: var(--bone);
+  transition: background-color 150ms ease-out;
+}
+.viewer-btn:hover {
+  background: rgb(236 227 208 / 0.22);
+}
+
+.map-frame {
+  border: 2px solid var(--red);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--wall-2);
+}
+.map-frame iframe {
+  filter: grayscale(1) invert(0.92) contrast(0.9) brightness(0.95);
+}
+
+/* ---------- Motion layer ---------- */
+
+/* First-visit intro: the logo is stamped on, then the sheet lifts away.
+   Runs from first paint (CSS), gated by an inline script + sessionStorage. */
+.intro {
+  display: none;
+}
+html[data-intro] .intro {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  background: var(--wall);
+  animation: intro-out 0.22s ease-in 0.78s forwards;
+  pointer-events: none;
+}
+html[data-intro] .intro img {
+  width: min(62vw, 300px);
+  height: auto;
+  animation: stamp 0.6s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+@keyframes stamp {
+  0% { transform: scale(1.2); opacity: 0; }
+  38% { transform: scale(0.98); opacity: 1; }
+  48% { transform: scale(1) translate(-2px, 1px) rotate(-0.8deg); }
+  58% { transform: translate(2px, -1px) rotate(0.8deg); }
+  68% { transform: translate(-1px, 0) rotate(-0.3deg); }
+  100% { transform: none; opacity: 1; }
+}
+@keyframes intro-out {
+  to { opacity: 0; }
+}
+html[data-intro="done"] .intro {
+  display: none;
+}
+
+/* Hero photo: ink spilling down the frame, drips running ahead. */
+.ink-reveal {
+  animation: ink-spill 0.95s cubic-bezier(0.55, 0, 0.25, 1) both;
+}
+html[data-intro] .ink-reveal {
+  animation-delay: 0.8s;
+}
+@keyframes ink-spill {
+  0% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 90% 0%, 79% 0%, 67% 0%, 55% 0%, 43% 0%, 31% 0%, 19% 0%, 8% 0%, 0% 0%);
+  }
+  45% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 34%, 90% 52%, 79% 30%, 67% 61%, 55% 38%, 43% 57%, 31% 29%, 19% 48%, 8% 33%, 0% 40%);
+  }
+  100% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 120%, 90% 135%, 79% 118%, 67% 140%, 55% 122%, 43% 138%, 31% 117%, 19% 131%, 8% 119%, 0% 125%);
+  }
+}
+@media (max-width: 767px) {
+  .ink-reveal { animation-duration: 0.7s; }
+  html[data-intro] .intro { animation-delay: 0.6s; }
+  html[data-intro] .intro img { animation-duration: 0.45s; }
+}
+
+/* Flash ribbon between hero and Sobre. */
+.marquee-band {
+  background: var(--red);
+  color: var(--bone);
+  font-family: var(--font-sancreek), serif;
+  font-size: clamp(1.5rem, 4.5vw, 2.25rem);
+  line-height: 1;
+  padding: 0.55em 0;
+  transform: rotate(-1.2deg) scaleX(1.03);
+  box-shadow: 0 0 0 2px var(--wall), 0 0 0 4px rgb(236 227 208 / 0.25);
+}
+
+.marquee-track {
+  animation: marquee 26s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+@media (max-width: 767px) {
+  .marquee-track { animation-duration: 20s; }
+}
+
+/* Booking steps: dotted stencil line behind the numbers. */
+.stencil-line {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+.stencil-line-v {
+  left: 2rem;
+  top: 2.5rem;
+  bottom: 5rem;
+  border-left: 3px dotted rgb(181 171 152 / 0.55);
+  transform-origin: top;
+}
+.stencil-line-h {
+  left: 3.5rem;
+  right: 18%;
+  top: 3.1rem;
+  border-top: 3px dotted rgb(181 171 152 / 0.55);
+  transform-origin: left;
+}
+.stamp-number {
+  background: var(--wall-2);
+  padding-inline: 0.12em 0.2em;
+  text-align: center;
+}
+
+/* Portfolio hover: a fresh-ink sheen crosses the skin. Mouse only. */
+.works-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / 0.16) 50%, transparent 65%);
+  mix-blend-mode: soft-light;
+  transform: translateX(-110%);
+}
+@media (hover: hover) and (pointer: fine) {
+  .works-thumb:hover .works-sheen {
+    transform: translateX(110%);
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+.ink-fill {
+  border-radius: 45% 45% 0 0 / 14px 14px 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-intro] .intro { display: none; }
+  .ink-reveal { animation: fade-in 0.4s ease-out both; }
+  .works-sheen { display: none; }
+  .marquee-track { animation: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+}
